@@ -7,7 +7,7 @@
           <router-link class="nav-link active" to="/">Home</router-link>
         </li>
         <li v-if="username" class="nav-item">
-          <router-link class="nav-link" to="/article">New Post</router-link>
+          <router-link class="nav-link" to="/editor">New Post</router-link>
         </li>
         <li v-if="username" class="nav-item">
           <router-link class="nav-link" to="/settings">Settings</router-link>
@@ -19,7 +19,10 @@
           <router-link class="nav-link" to="/register">Sign up</router-link>
         </li>
         <li v-if="username" class="nav-item">
-          <router-link class="nav-link" :to="`/@${username}`">{{username}}</router-link>
+          <router-link
+            class="nav-link"
+            :to="{name:'profile', params:{username:username}}"
+          >{{username}}</router-link>
         </li>
       </ul>
     </div>

@@ -28,16 +28,16 @@ export default new Router({
     },
     {
       path: "/editor",
-      name: "editor_new",
+      name: "editor",
       component: () => import("@/views/ArticleCreate.vue")
     },
     {
-      path: "/editor/:artilce-slug",
+      path: "/editor/:slug",
       name: "editor_edit",
       component: () => import("@/views/ArticleEdit.vue")
     },
     {
-      path: "/article/:artilce-slug",
+      path: "/article/:slug",
       name: "article",
       component: () => import("@/views/Article.vue")
     },

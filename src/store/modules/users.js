@@ -1,4 +1,5 @@
 import { api, setToken, clearToken } from "../api";
+
 export default {
   namespaced: true,
   state: {
@@ -8,11 +9,20 @@ export default {
   getters: {
     username(state) {
       return (state.user && state.user.username) || null;
+    },
+    userImage(state) {
+      return (state.user && state.user.image) || null;
+    },
+    profile(state) {
+      return state.profile || null;
     }
   },
   mutations: {
     setUser(state, payload) {
       state.user = payload;
+    },
+    setProfile(state, payload) {
+      state.profile = payload;
     }
   },
   actions: {
@@ -31,6 +41,7 @@ export default {
           }
         });
         if (response.data.user) {
+          localStorage.setItem("token", response.data.user.token);
           setToken(response.data.user.token);
           commit("setUser", response.data.user);
         }
@@ -50,6 +61,7 @@ export default {
           }
         });
         if (response.data.user) {
+          localStorage.setItem("token", response.data.user.token);
           setToken(response.data.user.token);
           commit("setUser", response.data.user);
         }
@@ -57,6 +69,10 @@ export default {
         console.error(error);
         throw error;
       }
+    },
+    getProfile: async function({ commit }, payload) {
+      const response = await api.get(`/profiles/${payload.username}`);
+      commit("setProfile", response.data);
     }
   }
 };
